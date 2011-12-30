@@ -1,0 +1,26 @@
+<html>
+<head><script>
+function onupdate(tabid, info, tab) {
+    tab.url.match(/nicovideo.jp.watch.[a-z]{0,2}[0-9]{6,12}/) && tab.status == 'loading' && chrome.pageAction.show(tabid)
+}
+
+function newurl(nicourl) {
+    return "http://" + viewerUrl + '/' + nicourl.url.match(/[a-z]{0,2}[0-9]{6,12}/)
+}
+
+function viewclick(tab) {
+    chrome.tabs.update(tab.id,
+            { url:newurl(tab), selected:true }
+        )
+}
+var viewerUrl = localStorage['viewer_url'];
+if (viewerUrl.length == 0) {
+    viewerUrl = 'nicozon.net/watch';
+    localStorage['viewer_url'] = viewerUrl;
+}
+
+chrome.tabs.onUpdated.addListener(onupdate);
+chrome.pageAction.onClicked.addListener(viewclick);
+</script></head>
+<body></body>
+</html>

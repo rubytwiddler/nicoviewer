@@ -1,0 +1,16 @@
+{
+   "background_page": "nv1.html",
+   "description": "niconico viewer",
+   "icons": {
+      "16": "icon.png"
+   },
+   "name": "niconico viewer",
+   "page_action": {
+      "default_icon": "icon.png",
+      "default_title": "niconico viewer"
+   },
+   "permissions": [ "tabs", "http://ext.nicovideo.jp/*" ],
+   "update_url": "http://github.com/rubytwiddler/nicoviewer",
+   "options_page": "options.html",
+   "version": "0.1"
+}

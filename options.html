@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript'>
+/**
+ * Save the current selected option value to local storage.
+ */
+function saveOptions() {
+  var useSite = '';
+  var radio = document.getElementById('option_form').RadioOption;
+
+  for (var i = 0; i < radio.length; i++) {
+    if (radio[i].checked) {
+      useSite = radio[i].value;
+    }
+  }
+  localStorage['viewer_url'] = useSite;
+  disableButtons();
+
+  var saveButton = document.getElementById('option_form').saveButton;
+  saveButton.value = 'saved';
+}
+
+/**
+ * Load the option value from local storage to the page.
+ */
+function restoreOptions() {
+  var useSite = localStorage['viewer_url'];
+  var radio = document.getElementById('option_form').RadioOption;
+  if (!useSite) {
+    // Default option is 'never'.
+    useSite = 'nicozon.net/watch';
+  }
+  for (var i = 0; i < radio.length; i++) {
+    if (radio[i].value == useSite) {
+      radio[i].checked = true;
+      break;
+    }
+  }
+  disableButtons();
+}
+
+/**
+ * When user made some change on the option, call this function to enable the
+ * 'Save' and 'Reset' button.
+ */
+function enableButtons() {
+  var saveButton = document.getElementById('option_form').saveButton;
+  var resetButton = document.getElementById('option_form').resetButton;
+  saveButton.disabled = false;
+  resetButton.disabled = false;
+  saveButton.value = 'save';
+}
+
+/**
+ * When user saved or reseted the option, call this function to disable the
+ * 'Save' and 'Reset' button.
+ */
+function disableButtons() {
+  var saveButton = document.getElementById('option_form').saveButton;
+  var resetButton = document.getElementById('option_form').resetButton;
+  saveButton.disabled = true;
+  resetButton.disabled = true;
+}
+
+</script>
+<style type='text/css'>
+.box {
+  background: #EBEFF9  no-repeat left bottom;
+}
+
+.box-outer {
+  background: #e0e0ff no-repeat right bottom;
+  padding-bottom: 15px;
+}
+
+.box-inner {
+  background: #e0e0ff no-repeat left top;
+}
+
+.box-header {
+  background: #e0e0ff no-repeat right top;
+  padding-top: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.search:hover {
+  background: #c0c0c0;
+}
+</style>
+<title>
+</title>
+</head>
+<body onload='restoreOptions()' style='background:#EBEFF9'>
+<table summary='option page structure'>
+<tr style='height:50px'><td></td></tr>
+<tr><td style='width:200px'></td>
+<td>
+<div class='box'>
+<div class='box-outer'>
+<div class='box-inner'>
+<div class='box-header'>
+<table align='center' summary='option page title'><tr><td valign='middle'>
+<h1><b>Nico Viewer</b></h1>
+</td></tr>
+<tr><td align='center'><h2><b><span id='options_page_title_text' /></b></h2></td></tr>
+</table>
+<form id='option_form' action=''>
+<table summary='option form table'>
+<tr>
+<td valign='top' style='width:100px;padding-top:4px'></td>
+<td style='width:370px;height:80px' valign='top'>
+<table summary='options table'>
+<tr><td>
+<input id='nicoviewer_option_radio' type='radio' name='RadioOption' value='nicoviewer.net' onclick='enableButtons()' />
+Use Nicoviewer.net
+</td></tr>
+<tr><td>
+<input id='nicozon_option_radio' type='radio' name='RadioOption' value='nicozon.net/watch' onclick='enableButtons()' />
+Use Nicozon.net
+</td></tr></table>
+</tr>
+</table>
+<div align='center'>
+<input name='saveButton' type='button' value='Save' disabled='true' onclick='saveOptions()' />
+<input name='resetButton' type='button' value='Reset' disabled='true' onclick='restoreOptions()' />
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
