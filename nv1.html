@@ -14,7 +14,7 @@ function viewclick(tab) {
         )
 }
 var viewerUrl = localStorage['viewer_url'];
-if (viewerUrl.length == 0) {
+if (!viewerUrl) {
     viewerUrl = 'nicozon.net/watch';
     localStorage['viewer_url'] = viewerUrl;
 }
